@@ -1,33 +1,47 @@
 import React from 'react';
-import { logo } from '../assets/images';
+import { Link } from 'react-router-dom';
+import { store } from '../assets/images';
 
 export const Navbar = () => {
   return (
-    <div className='w-full h-16 bg-slate-700'>
+    <div className='w-full h-16 bg-slate-500'>
       <div className='flex flex-row justify-between'>
         <div className='flex justify-center md:w-1/12 '>
-          <img src={logo} alt='logo' className='w-12 h-12 mt-2' />
+          <img src={store} alt='logo' className='w-12 h-12 rounded-full mt-2' />
         </div>
         <div className='md:w-3/12'>
           <div className='flex flex-row gap-3 md:gap-16 mt-5'>
-            <li className='list-none text-white md:text-xl hover:border-b-2 cursor-pointer active:underline '>Home</li>
-            <li className='list-none text-white md:text-xl hover:border-b-2 cursor-pointer '>Shop</li>
-            <li className='list-none text-white md:text-xl hover:border-b-2 cursor-pointer '>About</li>
-            <li className='list-none text-white md:text-xl hover:border-b-2 cursor-pointer '>Contacts</li>
+            <Link to='/'>
+              <li className='list-none text-white md:text-xl hover:border-b-2 cursor-pointer active:underline '>
+                Home
+              </li>
+            </Link>
+            <Link to='/shop'>
+              <li className='list-none text-white md:text-xl hover:border-b-2 cursor-pointer '>Shop</li>
+            </Link>
+            <Link to='/about'>
+              <li className='list-none text-white md:text-xl hover:border-b-2 cursor-pointer '>About</li>
+            </Link>
+            <Link to='/contact'>
+              <li className='list-none text-white md:text-xl hover:border-b-2 cursor-pointer '>Contacts</li>
+            </Link>
           </div>
         </div>
-        <div className='flex flex-row md:w-1/12 gap-4 md:gap-8 '>
+        <div className='flex flex-row md:w-1/12 gap-4 md:gap-4 '>
           <button
-            id='dropdownNavbarLink'
-            data-dropdown-toggle='dropdownNavbar'
-            className='flex justify-between items-center py-2 pr-4 pl-3 w-full font-medium text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-gray-400 dark:hover:text-white dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent'
+            type='button'
+            className='flex text-sm px-4 rounded-full focus:ring-1 md:mr-0  focus:ring-gray-300 dark:focus:ring-gray-600'
+            id='user-menu-button'
+            aria-expanded='false'
+            data-dropdown-toggle='user-dropdown'
+            data-dropdown-placement='bottom'
           >
             <svg
               aria-hidden='true'
               focusable='false'
               data-prefix='fas'
               data-icon='user'
-              className='w-5 text-white pt-4 hover:border-b-2'
+              className='w-5 text-white pt-4'
               role='img'
               xmlns='http://www.w3.org/2000/svg'
               viewBox='0 0 448 512'
@@ -38,13 +52,37 @@ export const Navbar = () => {
               ></path>
             </svg>
           </button>
-          <button>
+          {/* <!-- Dropdown menu --> */}
+          <div
+            className='hidden z-50 my-2 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600'
+            id='user-dropdown'
+          >
+            <ul className='py-1' aria-labelledby='user-menu-button'>
+              <li>
+                <a
+                  href='/'
+                  class='block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white'
+                >
+                  Profile
+                </a>
+              </li>
+              <li>
+                <a
+                  href='/'
+                  class='block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white'
+                >
+                  Sign out
+                </a>
+              </li>
+            </ul>
+          </div>
+          <button className='flex mr-3 text-sm px-4 rounded-full md:mr-0 focus:ring-1 focus:ring-gray-300 dark:focus:ring-gray-600'>
             <svg
               aria-hidden='true'
               focusable='false'
               data-prefix='fas'
               data-icon='shopping-cart'
-              className='w-7 text-white pt-4 hover:border-b-2 '
+              className='w-7 text-white pt-4 '
               role='img'
               xmlns='http://www.w3.org/2000/svg'
               viewBox='0 0 576 512'

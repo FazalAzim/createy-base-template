@@ -3,7 +3,7 @@ import { footer } from '../assets/images';
 
 export const Footer = () => {
   return (
-    <div className='w-full h-24 mt-12'>
+    <div className='w-full h-24 '>
       <div className='flex flex-row justify-between items-center border-b-2'>
         <div className='w-1/12 mx-auto flex flex-row mb-2 '>
           <div>
