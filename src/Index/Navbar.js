@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { store } from '../assets/images';
+import { footer } from '../assets/images';
 
 export const Navbar = () => {
   return (
     <div className='w-full h-16 bg-slate-500'>
       <div className='flex flex-row justify-between'>
         <div className='flex justify-center md:w-1/12 '>
-          <img src={store} alt='logo' className='w-12 h-12 rounded-full mt-2' />
+          <img src={footer} alt='logo' className='w-12 h-12 rounded-full mt-2' />
         </div>
         <div className='md:w-3/12'>
           <div className='flex flex-row gap-3 md:gap-16 mt-5'>

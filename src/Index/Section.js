@@ -1,13 +1,15 @@
 import React from 'react';
 import { section } from '../assets/images';
-// import { section } from '../assets/images';
+import Typical from 'react-typical';
 
 export const Section = () => {
   return (
     <div>
       <div style={{ backgroundImage: `url(${section})` }} className='w-full h-[600px] bg-slate-700'>
         <div className='w-full h-[560px] flex flex-col justify-center items-center'>
-          <h1 className='text-5xl text-white flex justify-center items-center'>MY WEBSITE</h1>
+          <h1 className='text-5xl text-white flex justify-center items-center'>
+            <Typical loop={Infinity} steps={['MY WEBSITE', 2000, 'MY STORE', 2000]} />
+          </h1>
           <h1 className='pt-6 text-white flex justify-center items-center'>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus, eos. Ipsa ex cum ut, fuga incidunt
             cupiditate soluta minima blanditiis.
