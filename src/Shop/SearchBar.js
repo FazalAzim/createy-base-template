@@ -6,14 +6,34 @@ import { useState, useEffect } from 'react';
 import { SectionPhoto } from './SectionPhoto';
 import { GridCard } from './GridCard';
 import { ListCard } from './ListCard';
-import axios from 'axios';
 
 export const SearchBar = () => {
   const [isShown, setIsShown] = useState(false);
   const [data, setData] = useState('');
+
   useEffect(() => {
-    axios
-      .get('https://customer_3.createy.io/api/v1/products/', {
+    getProduct();
+  }, []);
+
+  const getProduct = async () => {
+    let result = await fetch('https://customer_3.createy.io/api/v1/products/', {
+      headers: {
+        'access-token': '2WVgN95sY_hmXPuoYdUYIw',
+        client: 'QBsvarwb4ci-7UIwvcsL1Q ',
+        expiry: '1667480071 ',
+        'token-type': 'Bearer',
+        uid: 'usama@gmail.com',
+      },
+    });
+    result = await result.json();
+    setData(result.products);
+    console.log(result.products);
+  };
+
+  const searchHandle = async (event) => {
+    let key = event.target.value;
+    if (key) {
+      let result = await fetch(`https://customer_3.createy.io/api/v1/products/?search_keyword=${key}`, {
         headers: {
           'access-token': '2WVgN95sY_hmXPuoYdUYIw',
           client: 'QBsvarwb4ci-7UIwvcsL1Q ',
@@ -21,20 +41,58 @@ export const SearchBar = () => {
           'token-type': 'Bearer',
           uid: 'usama@gmail.com',
         },
-      })
-      .then((response) => {
-        console.log(response.data.products);
-        setData(response.data.products);
-      })
-      .catch((error) => {
-        console.log(error);
       });
-  }, []);
+      result = await result.json();
+      console.warn(result);
+      if (result) {
+        setData(result.products);
+      }
+    } else {
+      getProduct();
+    }
+  };
+  const searchFilter = async (event) => {
+    console.warn('Selected value:', event.target.value);
+    let key = event.target.value;
+    let name = event.target.name;
+    const filters = {
+      keyword: '',
+      category: null,
+    };
 
-  const handleClick = (event) => {
+    console.log(key, name);
+
+    filters[name] = key;
+
+    console.log(filters);
+
+    if (key === 'All') {
+      getProduct();
+    } else {
+      let result = await fetch(
+        `https://customer_3.createy.io/api/v1/products/?search_keyword=${filters.keyword}&category_ids[]=${parseInt(
+          filters.category
+        )}`,
+        {
+          headers: {
+            'access-token': '2WVgN95sY_hmXPuoYdUYIw',
+            client: 'QBsvarwb4ci-7UIwvcsL1Q ',
+            expiry: '1667480071 ',
+            'token-type': 'Bearer',
+            uid: 'usama@gmail.com',
+          },
+        }
+      );
+      result = await result.json();
+      console.warn(result);
+      if (result) {
+        setData(result.products);
+      }
+    }
+  };
+  const handleClick = (value) => {
     // 👇️ toggle shown state
-    setIsShown(true);
-
+    setIsShown(value);
     // 👇️ or simply set it to true
     // setIsShown(true);
   };
@@ -48,22 +106,25 @@ export const SearchBar = () => {
           <div className='w-9/12 flex justify-center content-center'>
             <div className='mt-2'>
               <select
-                id='categories'
+                onChange={searchFilter}
+                name='category'
                 className='bg-gray-200 border border-gray-300 rounded-l-lg text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-[11px] dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
               >
-                <option value='PK'>Select categories</option>
-                <option value='US'>Lorem, ipsum.</option>
-                <option value='CA'>Lorem, ipsum.</option>
-                <option value='FR'>Lorem, ipsum.</option>
-                <option value='DE'>Lorem, ipsum.</option>
+                <option value='All'>All categories</option>
+                <option value='1'>Test</option>
+                <option value='3'>Grocery</option>
+                <option value='12'>Drinks</option>
+                <option value='DE'>Pine Apples</option>
               </select>
             </div>
             <div className='relative w-6/12 mt-2'>
               <input
-                type='search'
+                type='text'
                 id='search-dropdown'
+                name='keyword'
                 className='block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-200 rounded-r-lg border-l-gray-50 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500'
                 placeholder='Search...'
+                onChange={searchHandle}
                 required
               />
               <button
@@ -89,10 +150,10 @@ export const SearchBar = () => {
             </div>
           </div>
           <div className='flex flex-row gap-1'>
-            <button onClick={handleClick}>
+            <button onClick={() => handleClick(false)}>
               <img src={contract} alt='close' className='w-12 h-12' />
             </button>
-            <button onClick={handleClick}>
+            <button onClick={() => handleClick(true)}>
               <img src={expand} alt='open' className='w-12 h-12' />
             </button>
           </div>
@@ -102,10 +163,9 @@ export const SearchBar = () => {
         <div className='w-full flex flex-col justify-center gap-3'>
           <div className='w-full'>
             <SectionPhoto />
-          </div>
+          </div>{' '}
           <div className='w-full flex justify-center items-center'>
             <div className='w-11/12 flex flex-wrap justify-center gap-4'>
-              {' '}
               {isShown ? <ListCard data={data} /> : <GridCard data={data} />}
             </div>
           </div>
