@@ -15,6 +15,7 @@ export const SearchBar = () => {
     getProduct();
   }, []);
 
+  console.log(isShown);
   const getProduct = async () => {
     let result = await fetch('https://customer_3.createy.io/api/v1/products/', {
       headers: {
@@ -54,35 +55,18 @@ export const SearchBar = () => {
   const searchFilter = async (event) => {
     console.warn('Selected value:', event.target.value);
     let key = event.target.value;
-    let name = event.target.name;
-    const filters = {
-      keyword: '',
-      category: null,
-    };
-
-    console.log(key, name);
-
-    filters[name] = key;
-
-    console.log(filters);
-
-    if (key === 'All') {
+    if (key === 'PK') {
       getProduct();
     } else {
-      let result = await fetch(
-        `https://customer_3.createy.io/api/v1/products/?search_keyword=${filters.keyword}&category_ids[]=${parseInt(
-          filters.category
-        )}`,
-        {
-          headers: {
-            'access-token': '2WVgN95sY_hmXPuoYdUYIw',
-            client: 'QBsvarwb4ci-7UIwvcsL1Q ',
-            expiry: '1667480071 ',
-            'token-type': 'Bearer',
-            uid: 'usama@gmail.com',
-          },
-        }
-      );
+      let result = await fetch(`https://customer_3.createy.io/api/v1/products/?search_keyword=&category_id[]=${key}`, {
+        headers: {
+          'access-token': '2WVgN95sY_hmXPuoYdUYIw',
+          client: 'QBsvarwb4ci-7UIwvcsL1Q ',
+          expiry: '1667480071 ',
+          'token-type': 'Bearer',
+          uid: 'usama@gmail.com',
+        },
+      });
       result = await result.json();
       console.warn(result);
       if (result) {
@@ -91,10 +75,7 @@ export const SearchBar = () => {
     }
   };
   const handleClick = (value) => {
-    // 👇️ toggle shown state
     setIsShown(value);
-    // 👇️ or simply set it to true
-    // setIsShown(true);
   };
   return (
     <>
@@ -107,10 +88,9 @@ export const SearchBar = () => {
             <div className='mt-2'>
               <select
                 onChange={searchFilter}
-                name='category'
                 className='bg-gray-200 border border-gray-300 rounded-l-lg text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-[11px] dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
               >
-                <option value='All'>All categories</option>
+                <option value='PK'>All categories</option>
                 <option value='1'>Test</option>
                 <option value='3'>Grocery</option>
                 <option value='12'>Drinks</option>
@@ -121,7 +101,6 @@ export const SearchBar = () => {
               <input
                 type='text'
                 id='search-dropdown'
-                name='keyword'
                 className='block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-200 rounded-r-lg border-l-gray-50 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500'
                 placeholder='Search...'
                 onChange={searchHandle}
@@ -151,10 +130,10 @@ export const SearchBar = () => {
           </div>
           <div className='flex flex-row gap-1'>
             <button onClick={() => handleClick(false)}>
-              <img src={contract} alt='close' className='w-12 h-12' />
+              <img src={contract} alt='close' className='w-12 h-12 hover:border-2 border-slate-500  rounded-lg' />
             </button>
             <button onClick={() => handleClick(true)}>
-              <img src={expand} alt='open' className='w-12 h-12' />
+              <img src={expand} alt='open' className='w-12 h-12 hover:border-2 border-slate-500  rounded-lg' />
             </button>
           </div>
         </div>
