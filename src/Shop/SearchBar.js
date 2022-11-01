@@ -1,7 +1,5 @@
 import React from 'react';
-import { store } from '../assets/images';
-import { contract } from '../assets/images';
-import { expand } from '../assets/images';
+import { store, faList, faSearch, faGrip, FontAwesomeIcon } from '../assets/images';
 import { useState, useEffect } from 'react';
 import { SectionPhoto } from './SectionPhoto';
 import { GridCard } from './GridCard';
@@ -19,11 +17,11 @@ export const SearchBar = () => {
   const getProduct = async () => {
     let result = await fetch('https://customer_3.createy.io/api/v1/products/', {
       headers: {
-        'access-token': '2WVgN95sY_hmXPuoYdUYIw',
-        client: 'QBsvarwb4ci-7UIwvcsL1Q ',
-        expiry: '1667480071 ',
+        'access-token': 'OpCVPXcZEBy4p1EeI5pzFw',
+        client: '-ejMXBjkgs9tS2Cmmg-AzA ',
+        expiry: '1668499571 ',
         'token-type': 'Bearer',
-        uid: 'usama@gmail.com',
+        uid: 'fazal@gmail.com',
       },
     });
     result = await result.json();
@@ -36,11 +34,11 @@ export const SearchBar = () => {
     if (key) {
       let result = await fetch(`https://customer_3.createy.io/api/v1/products/?search_keyword=${key}`, {
         headers: {
-          'access-token': '2WVgN95sY_hmXPuoYdUYIw',
-          client: 'QBsvarwb4ci-7UIwvcsL1Q ',
-          expiry: '1667480071 ',
+          'access-token': 'OpCVPXcZEBy4p1EeI5pzFw',
+          client: '-ejMXBjkgs9tS2Cmmg-AzA ',
+          expiry: '1668499571 ',
           'token-type': 'Bearer',
-          uid: 'usama@gmail.com',
+          uid: 'fazal@gmail.com',
         },
       });
       result = await result.json();
@@ -55,16 +53,16 @@ export const SearchBar = () => {
   const searchFilter = async (event) => {
     console.warn('Selected value:', event.target.value);
     let key = event.target.value;
-    if (key === 'PK') {
+    if (key === 'All') {
       getProduct();
     } else {
       let result = await fetch(`https://customer_3.createy.io/api/v1/products/?search_keyword=&category_id[]=${key}`, {
         headers: {
-          'access-token': '2WVgN95sY_hmXPuoYdUYIw',
-          client: 'QBsvarwb4ci-7UIwvcsL1Q ',
-          expiry: '1667480071 ',
+          'access-token': 'OpCVPXcZEBy4p1EeI5pzFw',
+          client: '-ejMXBjkgs9tS2Cmmg-AzA ',
+          expiry: '1668499571 ',
           'token-type': 'Bearer',
-          uid: 'usama@gmail.com',
+          uid: 'fazal@gmail.com',
         },
       });
       result = await result.json();
@@ -90,7 +88,7 @@ export const SearchBar = () => {
                 onChange={searchFilter}
                 className='bg-gray-200 border border-gray-300 rounded-l-lg text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-[11px] dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
               >
-                <option value='PK'>All categories</option>
+                <option value='All'>All categories</option>
                 <option value='1'>Test</option>
                 <option value='3'>Grocery</option>
                 <option value='12'>Drinks</option>
@@ -100,41 +98,33 @@ export const SearchBar = () => {
             <div className='relative w-6/12 mt-2'>
               <input
                 type='text'
-                id='search-dropdown'
-                className='block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-200 rounded-r-lg border-l-gray-50 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500'
                 placeholder='Search...'
+                className='block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-200 rounded-r-lg border-l-gray-50 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500'
                 onChange={searchHandle}
-                required
               />
               <button
                 type='submit'
                 className='absolute top-0 right-0 p-2.5 text-sm font-medium text-white bg-slate-500 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
               >
-                <svg
-                  aria-hidden='true'
-                  className='w-5 h-5'
-                  fill='none'
-                  stroke='currentColor'
-                  viewBox='0 0 24 24'
-                  xmlns='http://www.w3.org/2000/svg'
-                >
-                  <path
-                    stroke-linecap='round'
-                    stroke-linejoin='round'
-                    stroke-width='2'
-                    d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
-                  ></path>
-                </svg>
+                <FontAwesomeIcon
+                  icon={faSearch}
+                  className='text-[18px]  text-slate-100 hover:cursor-pointer '
+                ></FontAwesomeIcon>
               </button>
             </div>
           </div>
-          <div className='flex flex-row gap-1'>
-            <button onClick={() => handleClick(false)}>
-              <img src={contract} alt='close' className='w-12 h-12 hover:border-2 border-slate-500  rounded-lg' />
-            </button>
-            <button onClick={() => handleClick(true)}>
-              <img src={expand} alt='open' className='w-12 h-12 hover:border-2 border-slate-500  rounded-lg' />
-            </button>
+          <div className='flex flex-row justify-center items-center gap-1'>
+            <FontAwesomeIcon
+              onClick={() => handleClick(false)}
+              icon={faGrip}
+              className='text-5xl text-slate-400 hover:cursor-pointer bg-slate-200 hover:bg-slate-300 border-2 border-orange-600 rounded-l-lg'
+            ></FontAwesomeIcon>
+
+            <FontAwesomeIcon
+              onClick={() => handleClick(true)}
+              icon={faList}
+              className='text-5xl w-10  text-slate-400 hover:cursor-pointer bg-slate-200 hover:bg-slate-300 border-2 border-orange-600 rounded-r-lg'
+            ></FontAwesomeIcon>
           </div>
         </div>
       </div>

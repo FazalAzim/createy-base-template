@@ -2,7 +2,7 @@ import React from 'react';
 import { section } from '../assets/images';
 import Typical from 'react-typical';
 
-export const Section = () => {
+export const MegaMenu = () => {
   return (
     <div>
       <div style={{ backgroundImage: `url(${section})` }} className='w-full h-[600px] bg-slate-700'>
