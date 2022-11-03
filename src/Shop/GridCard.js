@@ -1,5 +1,4 @@
 import React from 'react';
-import { sneaker } from '../assets/images';
 
 export const GridCard = ({ data }) => {
   return (
@@ -8,7 +7,7 @@ export const GridCard = ({ data }) => {
         return (
           <div className='w-2/12 h-[500px] mt-6 ml-4  rounded-lg bg-blue-100 shadow-2xl'>
             <div className='w-full h-2/5  rounded-t-lg shadow-lg flex justify-center items-center'>
-              <img src={sneaker} alt='sneaker' className='w-64 flex justify-center items-center' />
+              <img src={data.image} alt='sneaker' className='w-64 flex justify-center items-center' />
             </div>
             <div className='w-full h-3/5 flex flex-col rounded-b-lg bg-gray-50 gap-10'>
               <div className='mt-5 flex flex-row justify-center gap-12'>
