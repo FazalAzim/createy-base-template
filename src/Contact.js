@@ -4,9 +4,9 @@ import { Navbar } from './Index/Navbar'
 
 export const Contact = () => {
   return (
-    <div>
+    <>
       <Navbar />
       <Footer />
-    </div>
+    </>
   )
 }

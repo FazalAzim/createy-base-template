@@ -4,74 +4,51 @@ import { useState, useEffect } from 'react';
 import { SectionPhoto } from './SectionPhoto';
 import { GridCard } from './GridCard';
 import { ListCard } from './ListCard';
+import { getProducts, getSearch, showCategories, getFilter } from '../api/products';
 
 export const SearchBar = () => {
   const [isShown, setIsShown] = useState(false);
-  const [data, setData] = useState('');
+  const [data, setData] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    getProduct();
+    fetchData();
   }, []);
-
-  console.log(isShown);
-  const getProduct = async () => {
-    let result = await fetch('https://customer_3.createy.io/api/v1/products/', {
-      headers: {
-        'access-token': 'OpCVPXcZEBy4p1EeI5pzFw',
-        client: '-ejMXBjkgs9tS2Cmmg-AzA ',
-        expiry: '1668499571 ',
-        'token-type': 'Bearer',
-        uid: 'fazal@gmail.com',
-      },
-    });
-    result = await result.json();
-    setData(result.products);
-    console.log(result.products);
-  };
+  async function fetchData() {
+    const { data } = await getProducts();
+    setData(data.products);
+    console.log(data.products);
+  }
 
   const searchHandle = async (event) => {
     let key = event.target.value;
     if (key) {
-      let result = await fetch(`https://customer_3.createy.io/api/v1/products/?search_keyword=${key}`, {
-        headers: {
-          'access-token': 'OpCVPXcZEBy4p1EeI5pzFw',
-          client: '-ejMXBjkgs9tS2Cmmg-AzA ',
-          expiry: '1668499571 ',
-          'token-type': 'Bearer',
-          uid: 'fazal@gmail.com',
-        },
-      });
-      result = await result.json();
-      console.warn(result);
-      if (result) {
-        setData(result.products);
-      }
+      const { data } = await getSearch(key);
+      setData(data.products);
     } else {
-      getProduct();
+      fetchData();
     }
   };
-  const searchFilter = async (event) => {
-    console.warn('Selected value:', event.target.value);
+  useEffect(() => {
+    showFilter();
+  }, []);
+
+  async function showFilter() {
+    const { data } = await showCategories();
+    // console.log(data);
+    setCategories(data);
+  }
+
+  const filterHandle = async (event) => {
     let key = event.target.value;
-    if (key === 'All') {
-      getProduct();
-    } else {
-      let result = await fetch(`https://customer_3.createy.io/api/v1/products/?search_keyword=&category_id[]=${key}`, {
-        headers: {
-          'access-token': 'OpCVPXcZEBy4p1EeI5pzFw',
-          client: '-ejMXBjkgs9tS2Cmmg-AzA ',
-          expiry: '1668499571 ',
-          'token-type': 'Bearer',
-          uid: 'fazal@gmail.com',
-        },
-      });
-      result = await result.json();
-      console.warn(result);
-      if (result) {
-        setData(result.products);
-      }
+    console.log(key);
+    if (key) {
+      const { data } = await getFilter(key);
+      setData(data.products);
+      console.log(data.products);
     }
   };
+
   const handleClick = (value) => {
     setIsShown(value);
   };
@@ -85,14 +62,13 @@ export const SearchBar = () => {
           <div className='w-9/12 flex justify-center content-center'>
             <div className='mt-2'>
               <select
-                onChange={searchFilter}
+                onChange={filterHandle}
                 className='bg-gray-200 border border-gray-300 rounded-l-lg text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-[11px] dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
               >
-                <option value='All'>All categories</option>
-                <option value='1'>Test</option>
-                <option value='3'>Grocery</option>
-                <option value='12'>Drinks</option>
-                <option value='DE'>Pine Apples</option>
+                <option value='All'>All Categories</option>
+                {categories.map((categories) => (
+                  <option value={categories.id}>{categories.name}</option>
+                ))}
               </select>
             </div>
             <div className='relative w-6/12 mt-2'>
@@ -108,7 +84,7 @@ export const SearchBar = () => {
               >
                 <FontAwesomeIcon
                   icon={faSearch}
-                  className='text-[18px]  text-slate-100 hover:cursor-pointer '
+                  className='text-[17px]  text-slate-100 hover:cursor-pointer '
                 ></FontAwesomeIcon>
               </button>
             </div>
@@ -131,14 +107,13 @@ export const SearchBar = () => {
       <div className='w-full flex flex-col justify-between'>
         <div className='w-full flex flex-col justify-center gap-3'>
           <div className='w-full'>
-            <SectionPhoto />
+            <SectionPhoto data={categories} />
           </div>{' '}
           <div className='w-full flex justify-center items-center'>
             <div className='w-11/12 flex flex-wrap justify-center gap-4'>
               {isShown ? <ListCard data={data} /> : <GridCard data={data} />}
             </div>
           </div>
-          {/* <div className='w-full flex flex-col justify-center gap-5'></div> */}
         </div>
         <div className='w-full flex justify-center items-center '>
           <div className='w-1/12 mt-5 flex flex-row justify-center gap-1'>

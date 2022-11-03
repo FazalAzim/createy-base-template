@@ -5,10 +5,10 @@ import { SearchBar } from './Shop/SearchBar';
 
 export const Shop = () => {
   return (
-    <div>
+    <>
       <Navbar />
       <SearchBar />
       <Footer />
-    </div>
+    </>
   );
 };
