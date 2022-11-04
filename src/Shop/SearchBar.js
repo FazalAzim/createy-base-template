@@ -2,14 +2,14 @@ import React from 'react';
 import { store, faList, faSearch, faGrip, FontAwesomeIcon } from '../assets/images';
 import { useState, useEffect } from 'react';
 import { SectionPhoto } from './SectionPhoto';
-import { GridCard } from './GridCard';
-import { ListCard } from './ListCard';
+import { Card } from './Card';
 import { getProducts, getSearch, showCategories, getFilter } from '../api/products';
 
 export const SearchBar = () => {
   const [isShown, setIsShown] = useState(false);
   const [data, setData] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [mainCategories, setMainCategories] = useState({});
 
   useEffect(() => {
     fetchData();
@@ -17,7 +17,6 @@ export const SearchBar = () => {
   async function fetchData() {
     const { data } = await getProducts();
     setData(data.products);
-    console.log(data.products);
   }
 
   const searchHandle = async (event) => {
@@ -35,17 +34,24 @@ export const SearchBar = () => {
 
   async function showFilter() {
     const { data } = await showCategories();
-    // console.log(data);
     setCategories(data);
   }
 
   const filterHandle = async (event) => {
     let key = event.target.value;
-    console.log(key);
-    if (key) {
+    if (key === 'All') {
+      fetchData();
+    } else {
       const { data } = await getFilter(key);
       setData(data.products);
-      console.log(data.products);
+    }
+  };
+
+  const getCategoriesInformation = async (key) => {
+    if (key !== 'All') {
+      const { data } = await showCategories();
+      const exist = data.find((item) => item.id === parseInt(key));
+      setMainCategories(exist);
     }
   };
 
@@ -62,7 +68,10 @@ export const SearchBar = () => {
           <div className='w-9/12 flex justify-center content-center'>
             <div className='mt-2'>
               <select
-                onChange={filterHandle}
+                onChange={(e) => {
+                  getCategoriesInformation(e.target.value);
+                  filterHandle(e);
+                }}
                 className='bg-gray-200 border border-gray-300 rounded-l-lg text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-[11px] dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
               >
                 <option value='All'>All Categories</option>
@@ -76,7 +85,7 @@ export const SearchBar = () => {
                 type='text'
                 placeholder='Search...'
                 className='block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-200 rounded-r-lg border-l-gray-50 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500'
-                onChange={searchHandle}
+                onChange={(e) => searchHandle(e)}
               />
               <button
                 type='submit'
@@ -93,13 +102,13 @@ export const SearchBar = () => {
             <FontAwesomeIcon
               onClick={() => handleClick(false)}
               icon={faGrip}
-              className='text-5xl text-slate-400 hover:cursor-pointer bg-slate-200 hover:bg-slate-300 border-2 border-orange-600 rounded-l-lg'
+              className='text-5xl text-slate-400 hover:cursor-pointer bg-slate-200 hover:bg-slate-300 border-2 border-slate-400 rounded-l-lg'
             ></FontAwesomeIcon>
 
             <FontAwesomeIcon
               onClick={() => handleClick(true)}
               icon={faList}
-              className='text-5xl w-10  text-slate-400 hover:cursor-pointer bg-slate-200 hover:bg-slate-300 border-2 border-orange-600 rounded-r-lg'
+              className='text-5xl w-10  text-slate-400 hover:cursor-pointer bg-slate-200 hover:bg-slate-300 border-2 border-slate-400 rounded-r-lg'
             ></FontAwesomeIcon>
           </div>
         </div>
@@ -107,11 +116,19 @@ export const SearchBar = () => {
       <div className='w-full flex flex-col justify-between'>
         <div className='w-full flex flex-col justify-center gap-3'>
           <div className='w-full'>
-            <SectionPhoto data={categories} />
+            <SectionPhoto data={mainCategories} />
           </div>{' '}
           <div className='w-full flex justify-center items-center'>
             <div className='w-11/12 flex flex-wrap justify-center gap-4'>
-              {isShown ? <ListCard data={data} /> : <GridCard data={data} />}
+              {data.map((data) => (
+                <Card
+                  name={data.name}
+                  price={data.price}
+                  desc={data.description}
+                  image={data.image}
+                  isShown={isShown}
+                />
+              ))}
             </div>
           </div>
         </div>
