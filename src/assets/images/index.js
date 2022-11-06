@@ -4,11 +4,12 @@ import store from './images.png';
 import sneaker from './empty-image.png';
 import sneaker1 from './sneaker.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faList, faSearch, faGrip, faShoppingCart, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faList, faSearch, faGrip, faShoppingCart, faUser , faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { faFacebook, faTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons';
 
 export {
   FontAwesomeIcon,
+  faAngleDown,
   sneaker1,
   section,
   footer,

@@ -13,7 +13,7 @@ export const ViewCard = ({ data, visible, onClose }) => {
           &times;
         </div>
         <div className='w-4/12 h-full bg-slate-300 rounded-lg'>
-          <img src={sneaker} alt='stock' />
+          <img src={data.image ? data.image : sneaker} alt='stock' />
         </div>
         <div className='w-8/12 h-full bg-slate-200 flex flex-col rounded-lg '>
           <div className='w-full h-3/6'>
