@@ -4,7 +4,7 @@ import Typical from 'react-typical';
 export const MegaMenu = (props) => {
   return (
     <div>
-      <div style={{ backgroundImage: `url(${props.sectionPicture})` }} className='w-full h-[600px] bg-slate-700'>
+      <div style={{ backgroundImage: `url(${props.sectionPicture})`,'backgroundSize':'cover','backgroundRepeat':'no-repeat' }} className='w-full h-[600px] bg-slate-700'>
         <div className='w-full h-[560px] flex flex-col justify-center items-center'>
           <h1 className='text-6xl font-extrabold text-blue-300 drop-shadow-md flex justify-center items-center'>
             <Typical loop={Infinity} steps={[`${props.title1}`, 1000, `${props.title2}`, 1000]} />
