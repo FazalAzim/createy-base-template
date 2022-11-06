@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { sneaker } from '../assets/images';
+import { ViewCard } from './ViewCard';
 
 export const Card = ({ name, price, image, description, isShown }) => {
+  const [showMyModel, setShowMyModel] = useState(false);
+  const handleOnClose = () => setShowMyModel(false);
   return (
     <>
       {isShown ? (
@@ -23,7 +26,9 @@ export const Card = ({ name, price, image, description, isShown }) => {
                     <button className='text-xl text-white hover:text-xs'>Cart</button>
                   </div>
                   <div className='w-72 h-12  bg-indigo-400 hover:bg-sky-400 shadow-lg rounded-lg flex justify-center content-center'>
-                    <button className='text-xl text-white hover:text-xs'>View</button>
+                    <button onClick={() => setShowMyModel(true)} className='text-xl text-white hover:text-xs'>
+                      View
+                    </button>
                   </div>
                 </div>
               </div>
@@ -61,12 +66,15 @@ export const Card = ({ name, price, image, description, isShown }) => {
                 <button className='text-xl text-white hover:text-xs'>Cart</button>
               </div>
               <div className='w-10/12 h-12 mx-auto bg-indigo-400 hover:bg-sky-400 shadow-lg rounded-lg flex justify-center content-center'>
-                <button className='text-xl text-white hover:text-xs'>View</button>
+                <button onClick={() => setShowMyModel(true)} className='text-xl text-white hover:text-xs'>
+                  View
+                </button>
               </div>
             </div>
           </div>
         </div>
       )}
+      <ViewCard data={data} visible={showMyModel} onClose={handleOnClose} />
     </>
   );
 };
