@@ -121,12 +121,12 @@ export const SearchBar = () => {
           <div className='w-full flex justify-center items-center'>
             <div className='w-11/12 flex flex-wrap justify-center gap-4'>
               {data.map((data) => (
-                <Card
-                  name={data.name}
-                  price={data.price}
-                  desc={data.description}
-                  image={data.image}
-                  isShown={isShown}
+                <Card data ={data} isShown={isShown}
+                  // name={data.name}
+                  // price={data.price}
+                  // desc={data.description}
+                  // image={data.image}
+                  // isShown={isShown}
                 />
               ))}
             </div>
