@@ -78,10 +78,11 @@ export const Navbar = () => {
               </div>
             )}
           </div>
-
-          <button className='flex mr-3 px-4  rounded-full md:mr-0 focus:ring-1 focus:ring-gray-300 dark:focus:ring-gray-600'>
-            <FontAwesomeIcon icon={faShoppingCart} className='text-2xl pt-4 text-orange-100'></FontAwesomeIcon>
-          </button>
+          <Link to='/cart'>
+            <button className='inline-flex w-8 justify-center rounded-full border border-gray-300 bg-slate-400 mt-2 px-6 py-3 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100'>
+              <FontAwesomeIcon icon={faShoppingCart} className='text-2xl text-orange-100'></FontAwesomeIcon>
+            </button>
+          </Link>
         </div>
       </div>
     </div>
