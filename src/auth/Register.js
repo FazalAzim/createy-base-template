@@ -1,27 +1,28 @@
 import React from 'react';
 import { useState } from 'react';
+import { registration } from '../api/products';
 
 export const Register = () => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-  const [confirm, setConfirm] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
   const [phone, setPhone] = useState();
-  const [allEntry, setAllEntry] = useState([]);
   const [check, setCheck] = useState(false);
+  const [data, setData] = useState({});
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
-    if (password === confirm && check === true) {
-      const newEntry = { email: email, name: name, password: password, confirm: confirm, phone: phone, check: check };
-      setAllEntry([...allEntry, newEntry]);
-      console.log(allEntry);
+    if (password === passwordConfirm && check === true) {
+      const { config } = await registration({ email, name, password, passwordConfirm, phone });
+      setData(config.headers);
+      console.log(config);
     } else {
       console.log('Password does not match');
     }
   };
   return (
-    <section className='bg-gray-50 dark:bg-gray-900'>
+    <div className='bg-gray-50 dark:bg-gray-900'>
       <div className='flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0'>
         <div className='w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700'>
           <div className='p-6 space-y-4 md:space-y-6 sm:p-8'>
@@ -85,8 +86,8 @@ export const Register = () => {
                   type='confirm-password'
                   name='confirm-password'
                   id='confirm-password'
-                  value={confirm}
-                  onChange={(e) => setConfirm(e.target.value)}
+                  value={passwordConfirm}
+                  onChange={(e) => setPasswordConfirm(e.target.value)}
                   autoComplete='off'
                   placeholder='••••••••'
                   className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
@@ -138,6 +139,6 @@ export const Register = () => {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };

@@ -2,20 +2,21 @@ import React from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { faShoppingCart, FontAwesomeIcon, footer } from '../assets/images';
+import { authorization } from '../api/products';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [allEntry, setAllEntry] = useState([]);
-  const submit = (e) => {
-    e.preventDefault();
-    const newEntry = { email: email, password: password };
-    setAllEntry([...allEntry, newEntry]);
-    console.log(allEntry);
-  };
+  const [data, setData] = useState({});
 
+  const submit = async (e) => {
+    e.preventDefault();
+    const { config } = await authorization({ email, password });
+    setData(config.headers);
+    console.log(config.headers);
+  };
   return (
-    <section className='w-full h-screen  bg-gray-300'>
+    <div className='w-full h-screen  bg-gray-300'>
       <div className='container mx-auto py-12 px-12 h-full'>
         <div className='flex justify-center items-center h-full text-gray-800'>
           <div className='w-2/6'>
@@ -79,6 +80,6 @@ export const Login = () => {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };

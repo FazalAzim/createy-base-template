@@ -6,9 +6,9 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use((req) => {
-  req.headers['access-token'] = 'OpCVPXcZEBy4p1EeI5pzFw';
-  req.headers.client = '-ejMXBjkgs9tS2Cmmg-AzA';
-  req.headers.expiry = '1668499571';
+  req.headers['access-token'] = 'vBfrtSV9Fn9DSKr-M0v_xA';
+  req.headers.client = '3QovzrLp7AVWpSHQ2euiRw';
+  req.headers.expiry = '1669264522';
   req.headers['token-type'] = 'Baerer';
   req.headers.uid = 'fazal@gmail.com';
 
