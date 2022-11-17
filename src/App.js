@@ -8,11 +8,14 @@ import { Contact } from './pages/Contact';
 import { Login } from './auth/Login';
 import { Register } from './auth/Register';
 import { Cart } from './pages/Cart';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
     <>
       <BrowserRouter>
+        <ToastContainer />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='about' element={<About />} />

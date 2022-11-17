@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { registration } from '../api/products';
+// import { registration } from '../api/products';
 
 export const Register = () => {
   const [email, setEmail] = useState('');
@@ -9,14 +9,14 @@ export const Register = () => {
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [phone, setPhone] = useState();
   const [check, setCheck] = useState(false);
-  const [data, setData] = useState({});
+  // const [data, setData] = useState({});
 
   const submit = async (e) => {
     e.preventDefault();
     if (password === passwordConfirm && check === true) {
-      const { config } = await registration({ email, name, password, passwordConfirm, phone });
-      setData(config.headers);
-      console.log(config);
+      // const { config } = await registration({ email, name, password, passwordConfirm, phone });
+      // setData(config.headers);
+      // console.log(config.headers);
     } else {
       console.log('Password does not match');
     }

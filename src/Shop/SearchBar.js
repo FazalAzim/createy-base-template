@@ -14,15 +14,15 @@ export const SearchBar = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
   async function fetchData() {
     const { data } = await getProducts();
     setData(data.products);
   }
 
   const searchHandle = async (event) => {
-    let key = event.target.value;
-    if (key) {
-      const { data } = await getSearch(key);
+    if (event) {
+      const { data } = await getSearch(event);
       setData(data.products);
     } else {
       fetchData();
@@ -38,11 +38,10 @@ export const SearchBar = () => {
   }
 
   const filterHandle = async (event) => {
-    let key = event.target.value;
-    if (key === 'All') {
+    if (event === 'All') {
       fetchData();
     } else {
-      const { data } = await getFilter(key);
+      const { data } = await getFilter(event);
       setData(data.products);
     }
   };
@@ -52,6 +51,8 @@ export const SearchBar = () => {
       const { data } = await showCategories();
       const exist = data.find((item) => item.id === parseInt(key));
       setMainCategories(exist);
+    } else {
+      fetchData();
     }
   };
 
@@ -68,11 +69,11 @@ export const SearchBar = () => {
           <div className='w-9/12 flex justify-center content-center'>
             <div className='mt-2'>
               <select
-                onChange={(e) => {
-                  getCategoriesInformation(e.target.value);
-                  filterHandle(e);
-                }}
                 className='bg-gray-200 border border-gray-300 rounded-l-lg text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-[11px] dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                onChange={(event) => {
+                  getCategoriesInformation(event.target.value);
+                  filterHandle(event.target.value);
+                }}
               >
                 <option value='All'>All Categories</option>
                 {categories.map((categories) => (
@@ -85,7 +86,7 @@ export const SearchBar = () => {
                 type='text'
                 placeholder='Search...'
                 className='block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-200 rounded-r-lg border-l-gray-50 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500'
-                onChange={(e) => searchHandle(e)}
+                onChange={(event) => searchHandle(event.target.value)}
               />
               <button
                 type='submit'
@@ -120,14 +121,8 @@ export const SearchBar = () => {
           </div>{' '}
           <div className='w-full flex justify-center items-center'>
             <div className='w-11/12 flex flex-wrap justify-center gap-4'>
-              {data.map((data) => (
-                <Card data ={data} isShown={isShown}
-                  // name={data.name}
-                  // price={data.price}
-                  // desc={data.description}
-                  // image={data.image}
-                  // isShown={isShown}
-                />
+              {data.map((item) => (
+                <Card element={item} isShown={isShown} />
               ))}
             </div>
           </div>
@@ -138,6 +133,8 @@ export const SearchBar = () => {
             <p className='bg-slate-300 p-4 rounded-lg'>1</p>
             <button className='bg-slate-300 p-4 rounded-lg'>&rarr;</button>
           </div>
+
+          <p></p>
         </div>
       </div>
     </>

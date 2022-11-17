@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+
 import { footer, faShoppingCart, faUser, FontAwesomeIcon } from '../assets/images';
 
 export const Navbar = () => {
@@ -33,16 +34,16 @@ export const Navbar = () => {
           </div>
         </div>
         <div className='flex flex-row md:w-1/12 gap-4 md:gap-4 '>
-          <div class='relative inline-block text-left'>
+          <div className='relative inline-block text-left'>
             <div>
               <button
                 onClick={showOptionValue}
-                className='inline-flex w-8 justify-center rounded-full border border-gray-300 bg-slate-400 mt-2 px-6 py-3 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100'
+                className='inline-flex w-4 justify-center rounded-full border border-gray-300 bg-slate-400 mt-3 px-[18px] py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100'
                 id='menu-button'
                 aria-expanded='true'
                 aria-haspopup='true'
               >
-                <FontAwesomeIcon icon={faUser} className='text-2xl  text-orange-100'></FontAwesomeIcon>
+                <FontAwesomeIcon icon={faUser} className='text-xl  text-orange-100'></FontAwesomeIcon>
               </button>
             </div>
             {showOption && (
@@ -78,9 +79,10 @@ export const Navbar = () => {
               </div>
             )}
           </div>
+
           <Link to='/cart'>
-            <button className='inline-flex w-8 justify-center rounded-full border border-gray-300 bg-slate-400 mt-2 px-6 py-3 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100'>
-              <FontAwesomeIcon icon={faShoppingCart} className='text-2xl text-orange-100'></FontAwesomeIcon>
+            <button className='inline-flex w-4 justify-center rounded-full border border-gray-300 bg-slate-400 mt-3 px-[18px] py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100'>
+              <FontAwesomeIcon icon={faShoppingCart} className='text-xl text-orange-100'></FontAwesomeIcon>
             </button>
           </Link>
         </div>

@@ -29,13 +29,19 @@ export function registration(userData) {
   return instance({
     method: 'POST',
     url: '/api/v1/auth',
-    data:userData
+    data: userData,
   });
 }
 export function authorization(userData) {
   return instance({
     method: 'POST',
     url: '/api/v1/auth/sign_in',
-    data: userData
+    data: userData,
+  });
+}
+export function getCart() {
+  return instance({
+    method: 'GET',
+    url: '/api/v1/cart',
   });
 }

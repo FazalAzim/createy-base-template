@@ -2,18 +2,18 @@ import React from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { faShoppingCart, FontAwesomeIcon, footer } from '../assets/images';
-import { authorization } from '../api/products';
+// import { authorization } from '../api/products';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [data, setData] = useState({});
+  // const [data, setData] = useState({});
 
   const submit = async (e) => {
     e.preventDefault();
-    const { config } = await authorization({ email, password });
-    setData(config.headers);
-    console.log(config.headers);
+    // const { config } = await authorization({ email, password });
+    // setData(config.headers);
+    // console.log(config.headers);
   };
   return (
     <div className='w-full h-screen  bg-gray-300'>
