@@ -8,7 +8,8 @@ export const Home = () => {
   return (
     <>
       <Navbar />
-      <MegaMenu title1='BEST ONLINE STORE' title2='ADD TO CART' sectionPicture={section}/>
+      <MegaMenu title1='BEST ONLINE STORE' title2='CREATEY' sectionPicture={section} title3='In order to win that competition, make sure that your e-commerce website is able to provide excellent
+            customer experience.'/>
       <Footer />
     </>
   )

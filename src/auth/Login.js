@@ -2,21 +2,30 @@ import React from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { faShoppingCart, FontAwesomeIcon, footer } from '../assets/images';
-// import { authorization } from '../api/products';
+import { signIn } from '../api/products';
+import { section } from '../assets/images';
+import { setHeaders } from '../helper/auth.helper';
 
 export const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  // const [data, setData] = useState({});
+  const [user, setUser] = useState({
+    email: '',
+    password: '',
+  });
 
-  const submit = async (e) => {
-    e.preventDefault();
-    // const { config } = await authorization({ email, password });
-    // setData(config.headers);
-    // console.log(config.headers);
+  const submit = async () => {
+    let { headers } = await signIn(user);
+    setHeaders(headers);
   };
   return (
-    <div className='w-full h-screen  bg-gray-300'>
+    <div
+      style={{
+        backgroundImage: `url(${section})`,
+        backgroundSize: '60%',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+      }}
+      className='w-full h-screen  bg-gray-300'
+    >
       <div className='container mx-auto py-12 px-12 h-full'>
         <div className='flex justify-center items-center h-full text-gray-800'>
           <div className='w-2/6'>
@@ -33,7 +42,7 @@ export const Login = () => {
                       <span className='text-orange-900 '>E-STORE</span>
                     </h4>
                   </div>
-                  <form onSubmit={submit}>
+                  <div>
                     <p className='mb-4'>Please login to your account</p>
                     <div className='mb-4'>
                       <input
@@ -41,9 +50,9 @@ export const Login = () => {
                         placeholder='UserEmail'
                         className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
                         id='email'
-                        value={email}
+                        value={user.email}
                         autoComplete='off'
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => setUser({ ...user, email: e.target.value })}
                       />
                       <div className='mb-4'></div>
                       <input
@@ -51,13 +60,14 @@ export const Login = () => {
                         className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
                         id='password'
                         placeholder='Password'
-                        value={password}
+                        value={user.password}
                         autoComplete='off'
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={(e) => setUser({ ...user, password: e.target.value })}
                       />
                     </div>
                     <div className='text-center pt-1 mb-6 pb-1'>
                       <button
+                        onClick={submit}
                         className='inline-block px-6 py-2.5 text-white bg-blue-700 font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full mb-3'
                         type='submit '
                       >
@@ -73,7 +83,7 @@ export const Login = () => {
                         Register Now
                       </Link>
                     </p>
-                  </form>
+                  </div>
                 </div>
               </div>
             </div>

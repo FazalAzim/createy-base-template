@@ -7,14 +7,13 @@ import { ViewCard } from './ViewCard';
 
 export const Card = ({ element, isShown }) => {
   const [showMyModel, setShowMyModel] = useState(false);
-  // const [data, setData] = useState({});
   const handleOnClose = () => setShowMyModel(false);
   const dispatch = useDispatch();
 
   async function showCart(product) {
-    console.log(await getCart())
+    console.log(await getCart());
     const { data } = await getCart();
-    data.line_items.push(product)
+    data.line_items.push(product);
   }
   return (
     <>
@@ -66,16 +65,18 @@ export const Card = ({ element, isShown }) => {
         </div>
       ) : (
         <div className='w-2/12 h-[500px] mt-6 ml-4  rounded-lg bg-blue-100 shadow-2xl'>
-          <div className='w-full h-2/5  rounded-t-lg shadow-lg flex justify-center items-center'>
-            <img
-              src={element.image ? element.image : sneaker}
-              alt='sneaker'
-              className='w-full h-full flex justify-center items-center rounded-t-lg'
-            />
+          <div className='w-full h-2/5  rounded-t-lg shadow-lg flex flex-col '>
+            <div className='w-full h-1/6 text-xl text-stone-600 font-bold flex justify-center items-center'>{element.name}</div>
+            <div className='w-full h-5/6 flex justify-center items-center'>
+              <img
+                src={element.image ? element.image : sneaker}
+                alt='sneaker'
+                className='h-full w-full object-contain '
+              />
+            </div>
           </div>
           <div className='w-full h-3/5 flex flex-col rounded-b-lg bg-gray-50 gap-10'>
             <div className='mt-5 flex flex-row justify-center gap-12'>
-              <div className='text-2xl text-stone-600 font-bold'>{element.name}</div>
               <div className='text-2xl text-stone-600 font-bold '>{element.price}$</div>
             </div>
             <div className='pl-4 text-xl text-stone-600 font-medium'>{element.description}</div>

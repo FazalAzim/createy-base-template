@@ -1,16 +1,18 @@
 import { BASE_URL } from '../constants/Index';
 import axios from 'axios';
+import { getHeaders } from '../helper/auth.helper';
 
 const instance = axios.create({
   baseURL: BASE_URL,
 });
 
-instance.interceptors.request.use((req) => {
-  req.headers['access-token'] = 'vBfrtSV9Fn9DSKr-M0v_xA';
-  req.headers.client = '3QovzrLp7AVWpSHQ2euiRw';
-  req.headers.expiry = '1669264522';
-  req.headers['token-type'] = 'Baerer';
-  req.headers.uid = 'fazal@gmail.com';
+instance.interceptors.request.use(async (req) => {
+  const headers = await getHeaders();
+  req.headers['access-token'] = headers.token;
+  req.headers['client'] = headers.client;
+  req.headers['expiry'] = headers.expiry;
+  req.headers['token-type'] = 'Bearer';
+  req.headers['uid'] = headers.uid;
 
   return req;
 });

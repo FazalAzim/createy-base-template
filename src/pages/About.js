@@ -2,7 +2,7 @@ import React from 'react'
 import { Footer } from '../Index/Footer'
 import { Navbar } from '../Index/Navbar'
 import { MegaMenu } from '../Index/MegaMenu'
-import { sneaker1 } from '../assets/images'
+import {  sneaker1 } from '../assets/images'
 
 export const About = () => {
   return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import { store, faList, faSearch, faGrip, FontAwesomeIcon } from '../assets/images';
+import { faList, faSearch, faGrip, FontAwesomeIcon, faCartFlatbed } from '../assets/images';
 import { useState, useEffect } from 'react';
 import { SectionPhoto } from './SectionPhoto';
 import { Card } from './Card';
@@ -35,6 +35,8 @@ export const SearchBar = () => {
   async function showFilter() {
     const { data } = await showCategories();
     setCategories(data);
+    // const exist = data.find((item) => item.id === 1);
+    // console.log(exist.id);
   }
 
   const filterHandle = async (event) => {
@@ -43,6 +45,7 @@ export const SearchBar = () => {
     } else {
       const { data } = await getFilter(event);
       setData(data.products);
+      // console.log(data.products);
     }
   };
 
@@ -64,7 +67,10 @@ export const SearchBar = () => {
       <div className='w-full h-16 bg-slate-50 flex justify-center content-center'>
         <div className='w-8/12 h-full flex flex-row justify-center content-center gap-1'>
           <div className='flex justify-center content-center'>
-            <img src={store} alt='store' className='w-16 rounded-full' />
+            <FontAwesomeIcon
+              icon={faCartFlatbed}
+              className='text-3xl mt-4 text-slate-800 hover:cursor-pointer '
+            ></FontAwesomeIcon>
           </div>
           <div className='w-9/12 flex justify-center content-center'>
             <div className='mt-2'>

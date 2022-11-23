@@ -6,8 +6,12 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import store from './store/store';
 import { getTotal } from './store/product/productSlice';
-const root = ReactDOM.createRoot(document.getElementById('root'));
+// import { configureStore } from '@reduxjs/toolkit';
 store.dispatch(getTotal());
+// const store = configureStore({
+//   reducer: {},
+// });
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>

@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { footer, faShoppingCart, faUser, FontAwesomeIcon } from '../assets/images';
+import { store, faShoppingCart, faUser, FontAwesomeIcon } from '../assets/images';
+import { deleteHeaders } from '../helper/auth.helper';
 
 export const Navbar = () => {
   const [showOption, setShowOption] = useState(false);
   const showOptionValue = () => {
     setShowOption(!showOption);
   };
+  const handleSingOut = () => {
+    deleteHeaders();
+  };
 
   return (
-    <div className='w-full h-16 bg-slate-500'>
+    <div className='w-full h-16 bg-slate-400'>
       <div className='flex flex-row justify-between'>
         <div className='flex justify-center md:w-1/12 '>
-          <img src={footer} alt='logo' className='w-12 h-12 rounded-full mt-2' />
+          <img src={store} alt='logo' className='w-14  rounded-full mt-1' />
         </div>
         <div className='md:w-3/12'>
           <div className='flex flex-row gap-3 md:gap-16 mt-5'>
@@ -65,6 +69,15 @@ export const Navbar = () => {
                       Login
                     </li>
                   </Link>
+                  <li
+                    onClick={() => handleSingOut()}
+                    className='text-gray-700 hover:bg-slate-50 block px-4 py-2 text-sm'
+                    role='menuitem'
+                    tabindex='-1'
+                    id='menu-item-1'
+                  >
+                    Log Out
+                  </li>
                   <Link to='/register'>
                     <li
                       className='text-gray-700 hover:bg-slate-50 block px-4 py-2 text-sm'

@@ -17,7 +17,7 @@ export const ViewCard = ({ element, visible, onClose }) => {
           &times;
         </div>
         <div className='w-4/12 h-full bg-slate-300 rounded-lg'>
-          <img src={element.image ? element.image : sneaker} alt='stock' />
+          <img src={element.image ? element.image : sneaker} alt='stock' className='h-full w-full object-contain' />
         </div>
         <div className='w-8/12 h-full bg-slate-200 flex flex-col rounded-lg '>
           <div className='w-full h-3/6'>

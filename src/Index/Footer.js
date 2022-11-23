@@ -25,13 +25,13 @@ export const Footer = () => {
         </div>
         <div className='w-2/12 flex flex-row justify-start gap-4'>
           <a className='social-icons' href='#!'>
-            <FontAwesomeIcon icon={faFacebook} className='text-3xl text-orange-300'></FontAwesomeIcon>
+            <FontAwesomeIcon icon={faFacebook} className='text-3xl text-blue-500'></FontAwesomeIcon>
           </a>
           <a className='social-icons' href='#!'>
-            <FontAwesomeIcon icon={faTwitter} className='text-3xl text-orange-300'></FontAwesomeIcon>
+            <FontAwesomeIcon icon={faTwitter} className='text-3xl text-blue-500'></FontAwesomeIcon>
           </a>
           <a className='social-icons' href='#!'>
-            <FontAwesomeIcon icon={faInstagram} className='text-3xl text-orange-300'></FontAwesomeIcon>
+            <FontAwesomeIcon icon={faInstagram} className='text-3xl text-blue-500'></FontAwesomeIcon>
           </a>
         </div>
       </div>

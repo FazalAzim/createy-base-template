@@ -15,23 +15,23 @@ export const productSlice = createSlice({
         if (productExist.quantity < action.payload.inventory) {
           productExist.quantity += 1;
           toast.info(`increase ${action.payload.name} cart quantity`, {
-            position: 'top-left',
+            position: 'top-right',
           });
         } else {
           toast.success('You are out of stock', {
-            position: 'top-left',
+            position: 'top-right',
           });
         }
       } else if (action.payload.inventory === 0) {
         toast.success('Out of Stock', {
-          position: 'top-left',
+          position: 'top-right',
         });
       } else {
         state.itemsCost = state.itemsCost + action.payload.price;
         state.totalCost = state.shippingCost + state.itemsCost;
         state.cart.push({ ...action.payload, quantity: 1 });
         toast.success(`${action.payload.name} added to cart`, {
-          position: 'top-left',
+          position: 'top-right',
         });
       }
       localStorage.setItem('cart', JSON.stringify(state.cart));
@@ -41,7 +41,7 @@ export const productSlice = createSlice({
       state.cart = nextCartItem;
       localStorage.setItem('cart', JSON.stringify(state.cart));
       toast.success(`${action.payload.name} remove from cart`, {
-        position: 'top-left',
+        position: 'top-right',
       });
     },
     decrement(state, action) {
@@ -49,13 +49,13 @@ export const productSlice = createSlice({
       if (state.cart[productExist].quantity > 1) {
         state.cart[productExist].quantity -= 1;
         toast.info(`Decrease ${action.payload.name} cart quantity`, {
-          position: 'top-left',
+          position: 'top-right',
         });
       } else if (state.cart[productExist].quantity === 1) {
         const nextCartItem = state.cart.filter((cart) => cart.id !== action.payload.id);
         state.cart = nextCartItem;
         toast.success(`${action.payload.name} remove from cart`, {
-          position: 'top-left',
+          position: 'top-right',
         });
       }
       localStorage.setItem('cart', JSON.stringify(state.cart));
@@ -63,7 +63,7 @@ export const productSlice = createSlice({
     clearCart(state) {
       state.cart = [];
       toast.success('Your cart is empty', {
-        position: 'top-left',
+        position: 'top-right',
       });
       localStorage.setItem('cart', JSON.stringify(state.cart));
     },
