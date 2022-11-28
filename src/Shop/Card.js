@@ -1,20 +1,25 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { getCart } from '../api/products';
+import { setItemsInCart } from '../api/products';
 import { sneaker } from '../assets/images';
-import { addToCart } from '../store/product/productSlice';
 import { ViewCard } from './ViewCard';
+import { toast } from 'react-toastify';
 
 export const Card = ({ element, isShown }) => {
   const [showMyModel, setShowMyModel] = useState(false);
   const handleOnClose = () => setShowMyModel(false);
-  const dispatch = useDispatch();
-
-  async function showCart(product) {
-    console.log(await getCart());
-    const { data } = await getCart();
-    data.line_items.push(product);
+  async function showCart() {
+    if (element.inventory === 0) {
+      toast.success('Out of Stock', {
+        position: 'top-right',
+      });
+    } else {
+      setItemsInCart({ id: element.id, quantity: 1 }).then((res) => console.log(res));
+      toast.success(`${element.name} added to cart`, {
+        position: 'top-right',
+      });
+    }
   }
+
   return (
     <>
       {isShown ? (
@@ -35,7 +40,7 @@ export const Card = ({ element, isShown }) => {
                   <div className='w-72 h-12  bg-indigo-400 hover:bg-sky-400 shadow-lg rounded-lg flex justify-center content-center'>
                     <button
                       onClick={() => {
-                        dispatch(addToCart(element));
+                        showCart();
                       }}
                       className='w-full text-xl text-white hover:text-xs'
                     >
@@ -66,7 +71,9 @@ export const Card = ({ element, isShown }) => {
       ) : (
         <div className='w-2/12 h-[500px] mt-6 ml-4  rounded-lg bg-blue-100 shadow-2xl'>
           <div className='w-full h-2/5  rounded-t-lg shadow-lg flex flex-col '>
-            <div className='w-full h-1/6 text-xl text-stone-600 font-bold flex justify-center items-center'>{element.name}</div>
+            <div className='w-full h-1/6 text-xl text-stone-600 font-bold flex justify-center items-center'>
+              {element.name}
+            </div>
             <div className='w-full h-5/6 flex justify-center items-center'>
               <img
                 src={element.image ? element.image : sneaker}
@@ -85,7 +92,6 @@ export const Card = ({ element, isShown }) => {
                 <button
                   className='w-full text-xl text-white hover:text-xs'
                   onClick={() => {
-                    dispatch(addToCart(element));
                     showCart();
                   }}
                 >
@@ -101,7 +107,7 @@ export const Card = ({ element, isShown }) => {
           </div>
         </div>
       )}
-      <ViewCard element={element} visible={showMyModel} onClose={handleOnClose} />
+      <ViewCard element={element} visible={showMyModel} onClose={handleOnClose} addToCart={showCart} />
     </>
   );
 };

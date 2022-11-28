@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
+import { setItemsInCart } from '../../api/products';
 
 export const productSlice = createSlice({
   name: 'addToCart',
@@ -14,6 +15,8 @@ export const productSlice = createSlice({
       if (productExist) {
         if (productExist.quantity < action.payload.inventory) {
           productExist.quantity += 1;
+          setItemsInCart({ id: action.payload.id, quantity: productExist.quantity }).then((res) => console.log(res));
+
           toast.info(`increase ${action.payload.name} cart quantity`, {
             position: 'top-right',
           });
@@ -27,9 +30,11 @@ export const productSlice = createSlice({
           position: 'top-right',
         });
       } else {
-        state.itemsCost = state.itemsCost + action.payload.price;
-        state.totalCost = state.shippingCost + state.itemsCost;
+        // state.itemsCost = state.itemsCost + action.payload.price;
+        // state.totalCost = state.shippingCost + state.itemsCost;
         state.cart.push({ ...action.payload, quantity: 1 });
+        setItemsInCart({ id: action.payload.id, quantity: 1 }).then((res) => console.log(res));
+
         toast.success(`${action.payload.name} added to cart`, {
           position: 'top-right',
         });
@@ -45,18 +50,21 @@ export const productSlice = createSlice({
       });
     },
     decrement(state, action) {
-      const productExist = state.cart.findIndex((cart) => cart.id === action.payload.id);
-      if (state.cart[productExist].quantity > 1) {
-        state.cart[productExist].quantity -= 1;
-        toast.info(`Decrease ${action.payload.name} cart quantity`, {
-          position: 'top-right',
-        });
-      } else if (state.cart[productExist].quantity === 1) {
-        const nextCartItem = state.cart.filter((cart) => cart.id !== action.payload.id);
-        state.cart = nextCartItem;
-        toast.success(`${action.payload.name} remove from cart`, {
-          position: 'top-right',
-        });
+      let productExist = state.cart.find((element) => element.id === action.payload.id);
+      if (productExist) {
+        if (productExist.quantity > 1) {
+          productExist.quantity -= 1;
+          setItemsInCart({ id: action.payload.id, quantity: productExist.quantity }).then((res) => console.log(res));
+          toast.info(`Decrease ${action.payload.name} cart quantity`, {
+            position: 'top-right',
+          });
+        } else if (productExist.quantity === 1) {
+          const nextCartItem = state.cart.filter((cart) => cart.id !== action.payload.id);
+          state.cart = nextCartItem;
+          toast.success(`${action.payload.name} remove from cart`, {
+            position: 'top-right',
+          });
+        }
       }
       localStorage.setItem('cart', JSON.stringify(state.cart));
     },

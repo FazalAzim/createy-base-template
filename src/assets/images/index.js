@@ -7,6 +7,9 @@ import sneaker1 from './shopping-png-25679.png';
 import login from './login.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
+  faTrash,
+  faCheck,
+  faCircle,
   faCartFlatbed,
   faList,
   faSearch,
@@ -23,6 +26,9 @@ import { faFacebook, faTwitter, faInstagram } from '@fortawesome/free-brands-svg
 
 export {
   FontAwesomeIcon,
+  faTrash,
+  faCheck,
+  faCircle,
   faCartFlatbed,
   faHandHoldingDollar,
   faPhone,

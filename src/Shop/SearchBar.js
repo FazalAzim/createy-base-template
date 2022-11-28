@@ -13,11 +13,13 @@ export const SearchBar = () => {
 
   useEffect(() => {
     fetchData();
+    showFilter();
   }, []);
 
   async function fetchData() {
     const { data } = await getProducts();
     setData(data.products);
+    console.log(data.products);
   }
 
   const searchHandle = async (event) => {
@@ -28,15 +30,10 @@ export const SearchBar = () => {
       fetchData();
     }
   };
-  useEffect(() => {
-    showFilter();
-  }, []);
 
   async function showFilter() {
     const { data } = await showCategories();
     setCategories(data);
-    // const exist = data.find((item) => item.id === 1);
-    // console.log(exist.id);
   }
 
   const filterHandle = async (event) => {
@@ -45,7 +42,6 @@ export const SearchBar = () => {
     } else {
       const { data } = await getFilter(event);
       setData(data.products);
-      // console.log(data.products);
     }
   };
 

@@ -1,13 +1,10 @@
 import React from 'react';
 import { sneaker } from '../assets/images';
-import { useDispatch } from 'react-redux';
-import { addToCart } from '../store/product/productSlice';
 
-export const ViewCard = ({ element, visible, onClose }) => {
+export const ViewCard = ({ element, visible, onClose, addToCart }) => {
   const handleOnClose = () => {
     onClose();
   };
-  const dispatch = useDispatch();
 
   if (!visible) return null;
   return (
@@ -36,7 +33,7 @@ export const ViewCard = ({ element, visible, onClose }) => {
               <div className='w-52 h-12 mx-auto bg-indigo-400 hover:bg-sky-400 shadow-lg rounded-lg flex justify-center content-center'>
                 <button
                   onClick={() => {
-                    dispatch(addToCart(element));
+                    addToCart();
                   }}
                   className='w-full text-xl text-white hover:text-xs'
                 >

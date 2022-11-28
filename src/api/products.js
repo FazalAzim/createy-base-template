@@ -39,9 +39,27 @@ export function signIn(user) {
     data: user,
   });
 }
-export function getCart() {
+export const fetchCart = () => {
+  return instance({
+    method: 'GET',
+    url: '/api/v1/cart',
+  });
+};
+
+export const setItemsInCart = (data) => {
   return instance({
     method: 'PATCH',
     url: '/api/v1/cart',
+    data: {
+      product_id: data.id,
+      quantity: data.quantity,
+    },
   });
-}
+};
+export const removeItemFromCart = (data) => {
+  return instance({
+    method: 'DELETE',
+    url: `/api/v1/cart?line_item_id=${data}`,
+  });
+  // return request.delete(`/cart?line_item_id=${id}`);
+};
