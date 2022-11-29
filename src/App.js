@@ -10,6 +10,9 @@ import { Cart } from './pages/Cart';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { CartOrder } from './pages/CartOrder';
+import { CartShipping } from './pages/CartShipping';
+import { CardInCart } from './pages/CardInCart';
+import { SetAddressInCart } from './pages/SetAddressInCart';
 
 function App() {
   return (
@@ -25,6 +28,10 @@ function App() {
           <Route path='login' element={<Login />} />
           <Route path='register' element={<Register />} />
           <Route path='order' element={<CartOrder />} />
+          <Route path='shipping' element={<CartShipping />} />
+          <Route path='card' element={<CardInCart />} />
+          <Route path='address' element={<SetAddressInCart />} />
+
         </Routes>
       </BrowserRouter>
     </>

@@ -61,5 +61,23 @@ export const removeItemFromCart = (data) => {
     method: 'DELETE',
     url: `/api/v1/cart?line_item_id=${data}`,
   });
-  // return request.delete(`/cart?line_item_id=${id}`);
+};
+export const setShippingAddress = (data) => {
+  return instance({
+    method: 'POST',
+    url: '/api/v1/shipping_addresses',
+    data: data,
+  });
+};
+export const getShippingAddress = () => {
+  return instance({
+    method: 'GET',
+    url: '/api/v1/shipping_addresses',
+  });
+};
+export const removeShippingAddress = (id) => {
+  return instance({
+    method: 'DELETE',
+    url: `/api/v1/shipping_addresses?id=${id}`,
+  });
 };

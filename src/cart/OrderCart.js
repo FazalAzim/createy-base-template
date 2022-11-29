@@ -19,29 +19,32 @@ export const OrderCart = () => {
       setTotalCost(res.data.total_items_amount);
     });
   }
-  const handleDeleteFromCart = async (id) => {
-    await removeItemFromCart(id);
+  const handleDeleteFromCart = (id) => {
+    removeItemFromCart(id);
     getCart();
   };
 
   return (
-    <section className='w-full mt-8 flex flex-col justify-center items-center'>
+    <section className='w-full  flex flex-col mt-4 justify-center items-center'>
       <div className='w-10/12 flex flex-col justify-center items-center '>
         <div className='w-8/12 h-20 flex flex-col bg-slate-50 rounded-lg'>
           <div className='w-full flex justify-center items-center bg-slate-50'>
-            <FontAwesomeIcon icon={faCircle} className='text-4xl text-yellow-300'></FontAwesomeIcon>
+            <span className='flex h-7 w-7'>
+              <span className='animate-ping absolute inline-flex h-7 w-7 rounded-full bg-yellow-400 opacity-100'></span>
+              <span className='relative inline-flex rounded-full h-7 w-7 bg-yellow-500'></span>
+            </span>
             <span>
               <div className='px-3'>
                 <hr className='w-80  border-[1px] border-slate-900'></hr>
               </div>
             </span>
-            <FontAwesomeIcon icon={faCircle} className='text-4xl text-red-600'></FontAwesomeIcon>
+            <FontAwesomeIcon icon={faCircle} className='text-3xl text-red-600'></FontAwesomeIcon>
             <span>
               <div className='px-3'>
                 <hr className='w-80 border-[1px] border-slate-900'></hr>
               </div>
             </span>
-            <FontAwesomeIcon icon={faCircle} className='text-4xl text-red-600'></FontAwesomeIcon>
+            <FontAwesomeIcon icon={faCircle} className='text-3xl text-red-600'></FontAwesomeIcon>
           </div>
           <div className='w-full flex justify-center gap-80'>
             <h1>Your Order</h1>
@@ -98,7 +101,7 @@ export const OrderCart = () => {
                 &#8592; Continue Shopping
               </div>
             </Link>
-            <Link to='/order'>
+            <Link to='/shipping'>
               <div className='w-40 h-10  bg-indigo-400 hover:bg-sky-400 shadow-lg rounded-lg flex justify-center content-center'>
                 <button className='w-full text-xl text-white hover:text-xs'>Next Step</button>
               </div>
